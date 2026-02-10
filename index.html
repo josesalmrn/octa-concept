@@ -164,6 +164,15 @@
             background-attachment: fixed;
         }
 
+        /* Mobile fix for background image */
+        @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center center;
+            }
+        }
+
         /* Dark overlay for text contrast */
         .hero::before {
             content: '';
