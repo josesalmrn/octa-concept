@@ -434,6 +434,110 @@
             background: var(--primary);
         }
 
+        /* Partners Section */
+        .partners-section {
+            padding: 6rem 4rem;
+            background: var(--surface);
+            border-top: 1px solid var(--surface-light);
+            border-bottom: 1px solid var(--surface-light);
+            overflow: hidden;
+        }
+
+        .partners-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: -2rem;
+            margin-bottom: 4rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .partners-slider-wrapper {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .partners-slider-wrapper::before,
+        .partners-slider-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .partners-slider-wrapper::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--surface) 0%, transparent 100%);
+        }
+
+        .partners-slider-wrapper::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--surface) 0%, transparent 100%);
+        }
+
+        .partners-slider {
+            display: flex;
+            gap: 4rem;
+            animation: slidePartners 40s linear infinite;
+        }
+
+        .partners-slider:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes slidePartners {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .partner-logo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(100%) brightness(0) invert(1);
+            opacity: 0.6;
+            transition: all 0.4s ease;
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%) brightness(1) invert(0);
+            transform: scale(1.1);
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .partners-section {
+                padding: 4rem 2rem;
+            }
+
+            .partner-logo {
+                width: 120px;
+                height: 80px;
+            }
+
+            .partners-slider {
+                gap: 2rem;
+            }
+        }
+
         .gallery-subtitle {
             text-align: center;
             color: var(--text-muted);
@@ -618,6 +722,7 @@
         <div class="logo">OCTA<span>_</span>CONCEPT</div>
         <ul>
             <li><a href="#events">Eventos</a></li>
+            <li><a href="#partners">Socios</a></li>
             <li><a href="#gallery">Galería</a></li>
             <li><a href="#about">Nosotros</a></li>
             <li><a href="#contact">Contacto</a></li>
@@ -720,6 +825,91 @@
                     <a href="https://www.funcapital.com/" target="_blank" class="ticket-button">
                         Comprar Boletos →
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners" class="partners-section">
+        <h2 class="section-title">Nuestros <span>Socios</span></h2>
+        <p class="partners-subtitle">Marcas que confían en OCTA CONCEPT</p>
+        
+        <div class="partners-slider-wrapper">
+            <div class="partners-slider">
+                <!-- First set of logos -->
+                <div class="partner-logo">
+                    <img src="partners/tudriver_500x500.png" alt="Tu Driver">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/premierdistri_500x500.png" alt="Premier Distributions">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/makelatm_500x500.png" alt="Make Latam">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/jagger_500x500.png" alt="Jägermeister">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/hielopolar_500x500.png" alt="Hielo Polar">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/fun_500x500.png" alt="Fun">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/electrolit_500x500.png" alt="Electrolit">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/donkeys_500x500.png" alt="Donkeys">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/disal_500x500.png" alt="Disal">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/corajillo_500x500.png" alt="Corajillo">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/cbc_500x500.png" alt="CBC">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/3am_500x500.png" alt="3AM Techno">
+                </div>
+                
+                <!-- Duplicate set for infinite loop -->
+                <div class="partner-logo">
+                    <img src="partners/tudriver_500x500.png" alt="Tu Driver">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/premierdistri_500x500.png" alt="Premier Distributions">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/makelatm_500x500.png" alt="Make Latam">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/jagger_500x500.png" alt="Jägermeister">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/hielopolar_500x500.png" alt="Hielo Polar">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/fun_500x500.png" alt="Fun">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/electrolit_500x500.png" alt="Electrolit">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/donkeys_500x500.png" alt="Donkeys">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/disal_500x500.png" alt="Disal">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/corajillo_500x500.png" alt="Corajillo">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/cbc_500x500.png" alt="CBC">
+                </div>
+                <div class="partner-logo">
+                    <img src="partners/3am_500x500.png" alt="3AM Techno">
                 </div>
             </div>
         </div>
