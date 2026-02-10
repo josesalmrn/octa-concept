@@ -158,12 +158,29 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background-image: url('hero-background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Dark overlay for text contrast */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         .hero-content {
             text-align: center;
             z-index: 2;
             animation: fadeInUp 1.2s ease;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
         @keyframes fadeInUp {
@@ -184,14 +201,16 @@
             margin-bottom: 1rem;
             font-family: 'Space Mono', monospace;
             line-height: 0.9;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
         }
 
         .hero .subtitle {
             font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--text-muted);
+            color: var(--secondary);
             letter-spacing: 0.3em;
             text-transform: uppercase;
             animation: fadeInUp 1.2s ease 0.2s both;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
         }
 
         .cta-button {
@@ -606,7 +625,6 @@
     </nav>
 
     <section class="hero">
-        <div class="grid-bg"></div>
         <div class="hero-content">
             <h1>OCTA CONCEPT</h1>
             <p class="subtitle">Electronic Music Experiences</p>
