@@ -222,9 +222,108 @@
             text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
         }
 
+        /* Featured Event in Hero */
+        .featured-event {
+            margin: 3rem 0 2rem 0;
+            padding: 2rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--accent);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1.2s ease 0.4s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-event-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .featured-event-name {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--secondary);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .featured-event-date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--surface-light);
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .countdown-value {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .countdown-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.3rem;
+        }
+
+        .countdown-separator {
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.5;
+            font-family: 'Bebas Neue', sans-serif;
+            margin: 0 0.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-item {
+                min-width: 50px;
+            }
+
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+
+            .countdown-label {
+                font-size: 0.6rem;
+            }
+
+            .countdown-separator {
+                font-size: 1.5rem;
+            }
+        }
+
         .cta-button {
             display: inline-block;
-            margin-top: 3rem;
+            margin-top: 1rem;
             padding: 1.2rem 3rem;
             background: transparent;
             border: 2px solid var(--accent);
@@ -237,7 +336,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 1.2s ease 0.4s both;
+            animation: fadeInUp 1.2s ease 0.6s both;
         }
 
         .cta-button::before {
@@ -689,6 +788,19 @@
             .hero h1 {
                 font-size: 3rem;
             }
+
+            .featured-event {
+                padding: 1.5rem;
+                margin: 2rem 1rem 1.5rem 1rem;
+            }
+
+            .featured-event-name {
+                font-size: 2rem;
+            }
+
+            .featured-event-date {
+                font-size: 0.75rem;
+            }
         }
 
         /* Scroll Indicator */
@@ -743,7 +855,38 @@
         <div class="hero-content">
             <h1>OCTA CONCEPT</h1>
             <p class="subtitle">Electronic Music Experiences</p>
-            <a href="#events" class="cta-button">Próximos Eventos</a>
+            
+            <!-- Featured Event -->
+            <div class="featured-event">
+                <div class="featured-event-label">Próximo Evento</div>
+                <div class="featured-event-name">DREAMWOODS</div>
+                <div class="featured-event-date">21 FEB 2026 • The Hideout, Comasagua</div>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">00</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">00</span>
+                        <span class="countdown-label">Min</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">00</span>
+                        <span class="countdown-label">Seg</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="https://dreamwoods.funcapital.com" target="_blank" class="cta-button">Comprar Boletos</a>
         </div>
         <div class="scroll-indicator">
             <span>Scroll</span>
@@ -967,6 +1110,39 @@
     </footer>
 
     <script>
+        // Countdown Timer for Dreamwoods Event
+        // Event date: February 21, 2026 at 7:00 PM
+        const eventDate = new Date('February 21, 2026 19:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            // If the countdown is finished
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = '<div style="color: var(--accent); font-size: 1.2rem; letter-spacing: 0.2em;">¡EVENTO EN CURSO!</div>';
+            }
+        }
+
+        // Update countdown every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Initial call
+        updateCountdown();
+
         // Cursor glow effect
         document.addEventListener('mousemove', (e) => {
             const glow = document.querySelector('body::before');
