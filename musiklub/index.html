@@ -652,6 +652,168 @@
             .featured-title {
                 font-size: 2rem;
             }
+
+            .gallery-slider {
+                overflow: hidden;
+            }
+
+            .slider-track {
+                gap: 1rem;
+            }
+
+            .slider-photo {
+                min-width: 100%;
+            }
+        }
+
+        /* Photo Gallery Slider */
+        .photo-gallery-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .gallery-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .gallery-title span {
+            color: var(--accent);
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .gallery-slider {
+            position: relative;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--surface-light);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-slider:hover {
+            border-color: var(--accent);
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-photo {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-photo-placeholder {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .placeholder-icon-large {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .placeholder-text-large {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            pointer-events: none;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .slider-btn:hover {
+            background: var(--accent);
+            color: var(--background);
+            transform: scale(1.1);
+        }
+
+        .slider-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1.5rem 0;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--surface-light);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .slider-dot:hover {
+            background: var(--accent);
+        }
+
+        .slider-caption {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: var(--background);
+            border-top: 1px solid var(--surface-light);
         }
     </style>
 </head>
@@ -857,6 +1019,48 @@
 
                     <p class="form-note">* Campos requeridos. Recibirás confirmación vía WhatsApp.</p>
                 </form>
+            </div>
+        </div>
+
+        <!-- Photo Gallery Slider -->
+        <div class="photo-gallery-section">
+            <h2 class="gallery-title">El <span>Club</span></h2>
+            <p class="gallery-subtitle">Conoce nuestro espacio</p>
+
+            <div class="gallery-slider">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- MUSIKLUB Photos -->
+                    <img src="musiklub-photo-1.jpg" alt="DJ Booth MUSIKLUB" class="slider-photo">
+                    <img src="musiklub-photo-2.jpg" alt="DJ en acción" class="slider-photo">
+                    <img src="musiklub-photo-3.jpg" alt="Vista del club" class="slider-photo">
+                    <img src="musiklub-photo-4.jpg" alt="Crowd bailando" class="slider-photo">
+                    <img src="musiklub-photo-5.jpg" alt="Ambiente club" class="slider-photo">
+                    <img src="musiklub-photo-6.jpg" alt="DJ Duo" class="slider-photo">
+                    <img src="musiklub-photo-7.jpg" alt="DJ celebrando" class="slider-photo">
+                    <img src="musiklub-photo-8.jpg" alt="Energía pista" class="slider-photo">
+                </div>
+
+                <!-- Slider Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn" onclick="prevSlide()">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    <button class="slider-btn" onclick="nextSlide()">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slider Dots -->
+            <div class="slider-dots" id="sliderDots"></div>
+
+            <!-- Caption -->
+            <div class="slider-caption" id="sliderCaption">
+                MUSIKLUB - Electronic Music Club
             </div>
         </div>
 
@@ -1069,6 +1273,82 @@
         const dateInput = document.getElementById('date');
         const today = new Date().toISOString().split('T')[0];
         dateInput.setAttribute('min', today);
+
+        // Photo Gallery Slider
+        let currentSlide = 0;
+        const sliderTrack = document.getElementById('sliderTrack');
+        const slides = sliderTrack.children;
+        const totalSlides = slides.length;
+        const sliderDotsContainer = document.getElementById('sliderDots');
+        const sliderCaption = document.getElementById('sliderCaption');
+
+        // Captions for each slide
+        const captions = [
+            'DJ Booth en acción - MUSIKLUB',
+            'DJ con neón Jägermeister',
+            'Vista del club con luces',
+            'El crowd bailando',
+            'Ambiente único de MUSIKLUB',
+            'DJ Duo en la cabina',
+            'DJ celebrando con el público',
+            'Energía en la pista'
+        ];
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            sliderDotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            const dots = sliderDotsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.toggle('active', i === currentSlide);
+            }
+            
+            // Update caption
+            sliderCaption.textContent = captions[currentSlide];
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-advance slider every 5 seconds
+        let sliderInterval = setInterval(nextSlide, 5000);
+
+        // Pause auto-advance on hover
+        const gallerySlider = document.querySelector('.gallery-slider');
+        gallerySlider.addEventListener('mouseenter', () => {
+            clearInterval(sliderInterval);
+        });
+
+        gallerySlider.addEventListener('mouseleave', () => {
+            sliderInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
     </script>
 </body>
 </html>
