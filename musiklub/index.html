@@ -168,7 +168,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--surface) 100%);
+            background: 
+                linear-gradient(
+                    to bottom,
+                    rgba(10, 10, 10, 0.85) 0%,
+                    rgba(10, 10, 10, 0.75) 50%,
+                    rgba(10, 10, 10, 0.9) 100%
+                ),
+                url('musiklub-photo-1.jpg') center center / cover no-repeat;
             padding: 8rem 2rem 4rem 2rem;
             text-align: center;
             position: relative;
@@ -197,6 +204,9 @@
             position: relative;
             z-index: 1;
             max-width: 900px;
+            padding: 2rem;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
         }
 
         .hero h1 {
@@ -215,22 +225,26 @@
             width: auto;
             height: auto;
             margin: 0 auto 1.5rem auto;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.3));
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.6)) 
+                    drop-shadow(0 0 60px rgba(0, 0, 0, 0.8));
             transition: all 0.3s ease;
             display: block;
         }
 
         .hero-logo:hover {
-            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.5));
+            filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.8))
+                    drop-shadow(0 0 80px rgba(0, 0, 0, 0.9));
             transform: scale(1.05);
         }
 
         .hero-subtitle {
             font-size: 1.2rem;
-            color: var(--text-muted);
+            color: var(--secondary);
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8),
+                         0 0 20px rgba(0, 0, 0, 0.6);
         }
 
         .hero-location {
@@ -239,6 +253,9 @@
             gap: 0.5rem;
             color: var(--accent);
             font-size: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9),
+                         0 0 20px rgba(0, 0, 0, 0.7);
+            font-weight: 500;
             letter-spacing: 0.05em;
         }
 
