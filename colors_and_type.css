@@ -1,0 +1,170 @@
+/*
+ * OCTA CONCEPT Design System — Colors & Typography
+ * Electronic music event production & nightlife, El Salvador
+ * Source: https://github.com/josesalmrn/octa-concept
+ */
+
+/* ─── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+
+/* ─── Base Color Tokens ─────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg:            #0A0A0A;   /* Primary background — near black */
+  --color-surface:       #1A1A1A;   /* Elevated surface (cards, panels) */
+  --color-surface-light: #2A2A2A;   /* Dividers, border fills */
+
+  /* Foreground */
+  --color-fg:            #FFFFFF;   /* Primary text */
+  --color-fg-muted:      #888888;   /* Secondary / caption text */
+
+  /* Accent */
+  --color-accent:        #00FF88;   /* Electric green — primary brand accent */
+  --color-accent-dim:    #00CC6E;   /* Dimmer accent for hover states */
+
+  /* Semantic aliases */
+  --color-border:        var(--color-surface-light);
+  --color-border-active: var(--color-accent);
+  --color-overlay:       rgba(0, 0, 0, 0.95);
+  --color-glow:          rgba(0, 255, 136, 0.15);
+}
+
+/* ─── Base Typography Tokens ────────────────────────────── */
+:root {
+  /* Font families */
+  --font-display:  'Bebas Neue', sans-serif;   /* Display / headings */
+  --font-body:     'DM Mono', monospace;        /* Body / UI text */
+  --font-data:     'Space Mono', monospace;     /* Numbers / times / code */
+
+  /* Font sizes */
+  --text-xs:   0.70rem;   /* 11px — labels, fine print */
+  --text-sm:   0.85rem;   /* 14px — captions, tags */
+  --text-base: 1.00rem;   /* 16px — body */
+  --text-md:   1.10rem;   /* 18px — lead text */
+  --text-lg:   1.50rem;   /* 24px — subheadings */
+  --text-xl:   2.00rem;   /* 32px — h3 display */
+  --text-2xl:  2.50rem;   /* 40px — h2 display */
+  --text-3xl:  4.00rem;   /* 64px — h1 display */
+  --text-hero: clamp(3rem, 10vw, 8rem);   /* Hero lockup */
+
+  /* Letter spacing */
+  --tracking-tight:  0.02em;
+  --tracking-normal: 0.05em;
+  --tracking-wide:   0.10em;
+  --tracking-wider:  0.15em;
+  --tracking-widest: 0.20em;
+  --tracking-ultra:  0.30em;
+
+  /* Line height */
+  --leading-tight:  0.9;
+  --leading-display: 1;
+  --leading-body:   1.6;
+  --leading-loose:  2.0;
+}
+
+/* ─── Semantic Typography Styles ────────────────────────── */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-tight);
+  color: var(--color-fg);
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-display);
+  color: var(--color-fg);
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-fg);
+}
+
+h4, .h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-fg);
+}
+
+p, .body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-fg-muted);
+}
+
+.lead {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--color-fg);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-fg-muted);
+}
+
+code, .mono {
+  font-family: var(--font-data);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+/* Accent text */
+.accent { color: var(--color-accent); }
+.muted  { color: var(--color-fg-muted); }
+
+/* ─── Spacing Tokens ────────────────────────────────────── */
+:root {
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.50rem;   /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1.00rem;   /* 16px */
+  --space-6:  1.50rem;   /* 24px */
+  --space-8:  2.00rem;   /* 32px */
+  --space-12: 3.00rem;   /* 48px */
+  --space-16: 4.00rem;   /* 64px */
+  --space-24: 6.00rem;   /* 96px */
+  --space-32: 8.00rem;   /* 128px */
+}
+
+/* ─── Border & Radius Tokens ────────────────────────────── */
+:root {
+  --radius-none: 0;        /* OCTA uses sharp 0-radius everywhere */
+  --border-thin: 1px solid var(--color-border);
+  --border-accent: 2px solid var(--color-accent);
+  --border-glow: 1px solid var(--color-accent);
+}
+
+/* ─── Shadow / Elevation ────────────────────────────────── */
+:root {
+  --shadow-glow:    0 0 30px rgba(0, 255, 136, 0.15);
+  --shadow-glow-lg: 0 0 60px rgba(0, 255, 136, 0.25);
+  --shadow-text:    0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* ─── Transitions ───────────────────────────────────────── */
+:root {
+  --transition-fast:   0.3s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow:   0.6s ease;
+}
