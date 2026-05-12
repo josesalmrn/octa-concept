@@ -216,16 +216,19 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
     
-    <!-- Google Analytics (Agregar tu ID cuando lo configures) -->
-    <!-- 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ENF7WMPDEJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-ENF7WMPDEJ');
+      
+      // Event tracking helper
+      window.trackEvent = function(eventName, eventParams) {
+        gtag('event', eventName, eventParams);
+      };
     </script>
-    -->
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1970,7 +1973,7 @@
                     <div class="event-date">05 DIC 2026 • TBA</div>
                     <h3 class="event-title">Forest - 10 Años OCTA</h3>
                     <p class="event-description">Celebramos una década de experiencias inolvidables. Un evento especial en el bosque para cerrar el año.</p>
-                    <a href="https://www.funcapital.com/" target="_blank" class="ticket-button">
+                    <a href="https://www.funcapital.com/" target="_blank" class="ticket-button" onclick="trackEvent('click_ticket_button', {event_name: 'Balearic Festival', event_price: 25, button_location: 'event_card'})">
                         Comprar Boletos →
                     </a>
                 </div>
