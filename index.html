@@ -1302,31 +1302,42 @@
 
         .gallery-slider {
             position: relative;
-            max-width: 700px;
+            max-width: 950px;
             margin: 0 auto 4rem auto;
             padding: 0 4rem;
         }
 
-        .gallery-slider-frame {
+        .gallery-viewport {
+            overflow: hidden;
             position: relative;
+        }
+
+        .gallery-track {
+            display: flex;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.65, 0.05, 0.36, 1);
+            will-change: transform;
+        }
+
+        .gallery-slide {
+            flex: 0 0 56%;
+            margin: 0 2%;
             aspect-ratio: 1 / 1;
             overflow: hidden;
             background: var(--surface);
             border: 1px solid var(--surface-light);
-            box-shadow: 0 0 0 1px rgba(0, 255, 240, 0.08);
+            opacity: 0.35;
+            filter: brightness(0.55) saturate(0.8);
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease, border-color 0.8s ease;
         }
 
-        .gallery-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1s ease;
-            pointer-events: none;
-        }
-
-        .gallery-slide.active {
+        .gallery-slide.is-active {
             opacity: 1;
-            pointer-events: auto;
+            filter: brightness(1) saturate(1);
+            transform: scale(1);
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 30px rgba(0, 255, 240, 0.35);
         }
 
         .gallery-slide img {
@@ -1334,14 +1345,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-        }
-
-        .gallery-slider-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            box-shadow: inset 0 0 40px rgba(5, 8, 16, 0.5);
-            pointer-events: none;
         }
 
         .gallery-dots {
@@ -1391,16 +1394,21 @@
         }
 
         .gallery-arrow.prev {
-            left: 1rem;
+            left: 0.5rem;
         }
 
         .gallery-arrow.next {
-            right: 1rem;
+            right: 0.5rem;
         }
 
         @media (max-width: 768px) {
             .gallery-slider {
                 padding: 0 1.5rem;
+            }
+
+            .gallery-slide {
+                flex: 0 0 74%;
+                margin: 0 3%;
             }
 
             .gallery-arrow {
@@ -2479,21 +2487,23 @@
         <p class="gallery-subtitle">Revive nuestros mejores momentos</p>
 
         <div class="gallery-slider">
-            <div class="gallery-slider-frame">
-                <div class="gallery-slide active">
-                    <img src="gallery/DSC01044.jpg" alt="OCTA CONCEPT - DJ set en vivo" loading="lazy">
-                </div>
-                <div class="gallery-slide">
-                    <img src="gallery/DSC00519.jpg" alt="OCTA CONCEPT - Ambiente del evento" loading="lazy">
-                </div>
-                <div class="gallery-slide">
-                    <img src="gallery/DSC01254.jpg" alt="OCTA CONCEPT - Escenario y multitud" loading="lazy">
-                </div>
-                <div class="gallery-slide">
-                    <img src="gallery/DSC01506.jpg" alt="OCTA CONCEPT - Pista de baile" loading="lazy">
-                </div>
-                <div class="gallery-slide">
-                    <img src="gallery/DSC01754.jpg" alt="OCTA CONCEPT - Asistentes disfrutando" loading="lazy">
+            <div class="gallery-viewport">
+                <div class="gallery-track">
+                    <div class="gallery-slide">
+                        <img src="gallery/DSC01044.jpg" alt="OCTA CONCEPT - DJ set en vivo" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="gallery/DSC00519.jpg" alt="OCTA CONCEPT - Ambiente del evento" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="gallery/DSC01254.jpg" alt="OCTA CONCEPT - Escenario y multitud" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="gallery/DSC01506.jpg" alt="OCTA CONCEPT - Pista de baile" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="gallery/DSC01754.jpg" alt="OCTA CONCEPT - Asistentes disfrutando" loading="lazy">
+                    </div>
                 </div>
 
                 <button class="gallery-arrow prev" aria-label="Foto anterior">&#10094;</button>
@@ -2506,29 +2516,37 @@
         <script>
         (function () {
             const slider = document.querySelector('.gallery-slider');
-            const slides = slider.querySelectorAll('.gallery-slide');
+            const viewport = slider.querySelector('.gallery-viewport');
+            const track = slider.querySelector('.gallery-track');
+            const slides = Array.from(track.querySelectorAll('.gallery-slide'));
             const dotsContainer = slider.querySelector('.gallery-dots');
             const prevBtn = slider.querySelector('.gallery-arrow.prev');
             const nextBtn = slider.querySelector('.gallery-arrow.next');
             let current = 0;
             let timer;
-            const intervalMs = 4000;
+            const intervalMs = 3000;
 
             slides.forEach((_, i) => {
                 const dot = document.createElement('button');
                 dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
                 dot.setAttribute('aria-label', 'Ir a foto ' + (i + 1));
-                dot.addEventListener('click', () => goTo(i));
+                dot.addEventListener('click', () => { goTo(i); stopAutoplay(); startAutoplay(); });
                 dotsContainer.appendChild(dot);
             });
-            const dots = dotsContainer.querySelectorAll('.gallery-dot');
+            const dots = Array.from(dotsContainer.querySelectorAll('.gallery-dot'));
+
+            function render() {
+                const slideEl = slides[current];
+                const offset = slideEl.offsetLeft - (viewport.clientWidth - slideEl.offsetWidth) / 2;
+                track.style.transform = 'translateX(-' + offset + 'px)';
+
+                slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+            }
 
             function goTo(index) {
-                slides[current].classList.remove('active');
-                dots[current].classList.remove('active');
                 current = (index + slides.length) % slides.length;
-                slides[current].classList.add('active');
-                dots[current].classList.add('active');
+                render();
             }
 
             function next() { goTo(current + 1); }
@@ -2545,7 +2563,9 @@
             prevBtn.addEventListener('click', () => { prev(); stopAutoplay(); startAutoplay(); });
             slider.addEventListener('mouseenter', stopAutoplay);
             slider.addEventListener('mouseleave', startAutoplay);
+            window.addEventListener('resize', render);
 
+            render();
             startAutoplay();
         })();
         </script>
