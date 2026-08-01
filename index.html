@@ -95,6 +95,12 @@
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Wednesday",
+          "opens": "20:00",
+          "closes": "02:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
           "dayOfWeek": "Thursday",
           "opens": "20:00",
           "closes": "02:00"
@@ -1294,57 +1300,112 @@
             letter-spacing: 0.1em;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.25rem;
-            max-width: 1200px;
+        .gallery-slider {
+            position: relative;
+            max-width: 700px;
             margin: 0 auto 4rem auto;
             padding: 0 4rem;
         }
 
-        .gallery-item {
+        .gallery-slider-frame {
             position: relative;
             aspect-ratio: 1 / 1;
             overflow: hidden;
             background: var(--surface);
             border: 1px solid var(--surface-light);
-            cursor: pointer;
+            box-shadow: 0 0 0 1px rgba(0, 255, 240, 0.08);
         }
 
-        .gallery-item img {
+        .gallery-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        .gallery-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease, filter 0.5s ease;
         }
 
-        .gallery-item::after {
+        .gallery-slider-frame::after {
             content: '';
             position: absolute;
             inset: 0;
-            border: 1px solid transparent;
-            box-shadow: inset 0 0 0 1px transparent;
-            transition: all 0.4s ease;
+            box-shadow: inset 0 0 40px rgba(5, 8, 16, 0.5);
             pointer-events: none;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
-            filter: brightness(1.1) saturate(1.15);
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
         }
 
-        .gallery-item:hover::after {
+        .gallery-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-secondary);
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-dot.active {
+            background: var(--accent-secondary);
+            box-shadow: 0 0 10px rgba(0, 255, 240, 0.7);
+            transform: scale(1.2);
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 8, 16, 0.55);
+            border: 1px solid var(--surface-light);
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .gallery-arrow:hover {
             border-color: var(--accent-secondary);
-            box-shadow: 0 0 25px rgba(0, 255, 240, 0.4), inset 0 0 20px rgba(0, 255, 240, 0.15);
+            color: var(--accent-secondary);
+        }
+
+        .gallery-arrow.prev {
+            left: 1rem;
+        }
+
+        .gallery-arrow.next {
+            right: 1rem;
         }
 
         @media (max-width: 768px) {
-            .gallery-grid {
+            .gallery-slider {
                 padding: 0 1.5rem;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
+            }
+
+            .gallery-arrow {
+                width: 36px;
+                height: 36px;
             }
         }
 
@@ -1991,8 +2052,8 @@
             <!-- Open Deck Destacado -->
             <div class="open-deck-featured">
                 <div class="info-card highlight">
-                    <h3 class="info-title">Open Deck Jueves</h3>
-                    <p class="recurring-event-desc">Espacio diseñado para que los DJs emergentes tengan su lugar. Todos los jueves desde las 8:00 PM.</p>
+                    <h3 class="info-title">Open Deck Miércoles</h3>
+                    <p class="recurring-event-desc">Espacio diseñado para que los DJs emergentes tengan su lugar. Todos los miércoles desde las 8:00 PM.</p>
                 </div>
             </div>
 
@@ -2001,6 +2062,16 @@
                 <h3 class="events-subtitle">Próximos Eventos en el Club</h3>
                 <div class="club-events-grid" id="clubEventsContainer">
                     <!-- Agosto -->
+                    <div class="club-event-card" data-date="2026-08-06T20:00:00">
+                        <div class="event-month">AGO</div>
+                        <div class="event-day">06</div>
+                        <div class="club-event-info">
+                            <h4>CINEMETRO</h4>
+                            <p>Evento Benéfico</p>
+                            <span class="event-time">Jueves • 8:00 PM</span>
+                        </div>
+                    </div>
+
                     <div class="club-event-card" data-date="2026-08-07T20:00:00">
                         <div class="event-month">AGO</div>
                         <div class="event-day">07</div>
@@ -2018,6 +2089,16 @@
                             <h4>ADN 160 BPM</h4>
                             <p>Sábado Nocturno</p>
                             <span class="event-time">Sábado • 8:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="club-event-card" data-date="2026-08-13T20:00:00">
+                        <div class="event-month">AGO</div>
+                        <div class="event-day">13</div>
+                        <div class="club-event-info">
+                            <h4>HEYOKA</h4>
+                            <p>Open Deck</p>
+                            <span class="event-time">Jueves • 8:00 PM</span>
                         </div>
                     </div>
 
@@ -2041,6 +2122,16 @@
                         </div>
                     </div>
 
+                    <div class="club-event-card" data-date="2026-08-20T20:00:00">
+                        <div class="event-month">AGO</div>
+                        <div class="event-day">20</div>
+                        <div class="club-event-info">
+                            <h4>TBA</h4>
+                            <p>Mario Araujo · Por confirmar</p>
+                            <span class="event-time">Jueves • 8:00 PM</span>
+                        </div>
+                    </div>
+
                     <div class="club-event-card" data-date="2026-08-21T20:00:00">
                         <div class="event-month">AGO</div>
                         <div class="event-day">21</div>
@@ -2058,6 +2149,16 @@
                             <h4>LOVE & DANCE PRESENTA</h4>
                             <p>A Julio CR</p>
                             <span class="event-time">Sábado • 8:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="club-event-card" data-date="2026-08-27T20:00:00">
+                        <div class="event-month">AGO</div>
+                        <div class="event-day">27</div>
+                        <div class="club-event-info">
+                            <h4>JP IBARRA (MX)</h4>
+                            <p>Open Deck</p>
+                            <span class="event-time">Jueves • 8:00 PM</span>
                         </div>
                     </div>
 
@@ -2082,6 +2183,16 @@
                     </div>
 
                     <!-- Septiembre -->
+                    <div class="club-event-card" data-date="2026-09-03T20:00:00">
+                        <div class="event-month">SEP</div>
+                        <div class="event-day">03</div>
+                        <div class="club-event-info">
+                            <h4>NAT GOLDEN GROOVE</h4>
+                            <p>Open Deck</p>
+                            <span class="event-time">Jueves • 8:00 PM</span>
+                        </div>
+                    </div>
+
                     <div class="club-event-card" data-date="2026-09-04T20:00:00">
                         <div class="event-month">SEP</div>
                         <div class="event-day">04</div>
@@ -2367,23 +2478,77 @@
         <h2 class="section-title">Galería <span>de Eventos</span></h2>
         <p class="gallery-subtitle">Revive nuestros mejores momentos</p>
 
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="gallery/DSC01044.jpg" alt="OCTA CONCEPT - DJ set en vivo" loading="lazy">
+        <div class="gallery-slider">
+            <div class="gallery-slider-frame">
+                <div class="gallery-slide active">
+                    <img src="gallery/DSC01044.jpg" alt="OCTA CONCEPT - DJ set en vivo" loading="lazy">
+                </div>
+                <div class="gallery-slide">
+                    <img src="gallery/DSC00519.jpg" alt="OCTA CONCEPT - Ambiente del evento" loading="lazy">
+                </div>
+                <div class="gallery-slide">
+                    <img src="gallery/DSC01254.jpg" alt="OCTA CONCEPT - Escenario y multitud" loading="lazy">
+                </div>
+                <div class="gallery-slide">
+                    <img src="gallery/DSC01506.jpg" alt="OCTA CONCEPT - Pista de baile" loading="lazy">
+                </div>
+                <div class="gallery-slide">
+                    <img src="gallery/DSC01754.jpg" alt="OCTA CONCEPT - Asistentes disfrutando" loading="lazy">
+                </div>
+
+                <button class="gallery-arrow prev" aria-label="Foto anterior">&#10094;</button>
+                <button class="gallery-arrow next" aria-label="Siguiente foto">&#10095;</button>
             </div>
-            <div class="gallery-item">
-                <img src="gallery/DSC00519.jpg" alt="OCTA CONCEPT - Ambiente del evento" loading="lazy">
-            </div>
-            <div class="gallery-item">
-                <img src="gallery/DSC01254.jpg" alt="OCTA CONCEPT - Escenario y multitud" loading="lazy">
-            </div>
-            <div class="gallery-item">
-                <img src="gallery/DSC01506.jpg" alt="OCTA CONCEPT - Pista de baile" loading="lazy">
-            </div>
-            <div class="gallery-item">
-                <img src="gallery/DSC01754.jpg" alt="OCTA CONCEPT - Asistentes disfrutando" loading="lazy">
-            </div>
+
+            <div class="gallery-dots"></div>
         </div>
+
+        <script>
+        (function () {
+            const slider = document.querySelector('.gallery-slider');
+            const slides = slider.querySelectorAll('.gallery-slide');
+            const dotsContainer = slider.querySelector('.gallery-dots');
+            const prevBtn = slider.querySelector('.gallery-arrow.prev');
+            const nextBtn = slider.querySelector('.gallery-arrow.next');
+            let current = 0;
+            let timer;
+            const intervalMs = 4000;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Ir a foto ' + (i + 1));
+                dot.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('.gallery-dot');
+
+            function goTo(index) {
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
+                current = (index + slides.length) % slides.length;
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
+            }
+
+            function next() { goTo(current + 1); }
+            function prev() { goTo(current - 1); }
+
+            function startAutoplay() {
+                timer = setInterval(next, intervalMs);
+            }
+            function stopAutoplay() {
+                clearInterval(timer);
+            }
+
+            nextBtn.addEventListener('click', () => { next(); stopAutoplay(); startAutoplay(); });
+            prevBtn.addEventListener('click', () => { prev(); stopAutoplay(); startAutoplay(); });
+            slider.addEventListener('mouseenter', stopAutoplay);
+            slider.addEventListener('mouseleave', startAutoplay);
+
+            startAutoplay();
+        })();
+        </script>
 
         <div class="instagram-cta">
             <a href="https://www.instagram.com/octaconcept/" target="_blank" class="instagram-button">
@@ -2480,7 +2645,7 @@
                 Nuestro <strong>club de música electrónica</strong> cuenta con <strong>pista de baile</strong> profesional, 
                 sistema de sonido Pioneer CDJ-3000, y capacidad para 150 personas. Ubicado en el tercer nivel de 
                 Calle La Ceiba 4730, San Salvador, MUSIKLUB es el epicentro de la <strong>vida nocturna</strong> 
-                en la capital. Abierto jueves a sábado, ofrecemos la mejor experiencia de <strong>nightlife</strong> 
+                en la capital. Abierto miércoles a sábado, ofrecemos la mejor experiencia de <strong>nightlife</strong> 
                 con DJs locales e internacionales especializados en techno, house, y EDM.
             </p>
             
