@@ -1294,14 +1294,58 @@
             letter-spacing: 0.1em;
         }
 
-        .instagram-feed-container {
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
             max-width: 1200px;
-            margin: 0 auto 3rem auto;
-            min-height: 400px;
+            margin: 0 auto 4rem auto;
+            padding: 0 4rem;
         }
 
-        .elfsight-app-b4ae13de-afdd-4414-9a97-4067c7a566bd {
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--surface-light);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            box-shadow: inset 0 0 0 1px transparent;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.1) saturate(1.15);
+        }
+
+        .gallery-item:hover::after {
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 25px rgba(0, 255, 240, 0.4), inset 0 0 20px rgba(0, 255, 240, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                padding: 0 1.5rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
         }
 
         .instagram-cta {
@@ -1350,12 +1394,6 @@
         .instagram-button svg {
             width: 24px;
             height: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .instagram-feed-container {
-                padding: 0 1rem;
-            }
         }
 
         /* Founders Section */
@@ -2328,11 +2366,23 @@
     <section id="gallery" class="gallery-section">
         <h2 class="section-title">Galería <span>de Eventos</span></h2>
         <p class="gallery-subtitle">Revive nuestros mejores momentos</p>
-        
-        <!-- Elfsight Instagram Feed | Octa Concept Page -->
-        <div class="instagram-feed-container">
-            <script src="https://elfsightcdn.com/platform.js" async></script>
-            <div class="elfsight-app-b4ae13de-afdd-4414-9a97-4067c7a566bd" data-elfsight-app-lazy></div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="gallery/DSC01044.jpg" alt="OCTA CONCEPT - DJ set en vivo" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="gallery/DSC00519.jpg" alt="OCTA CONCEPT - Ambiente del evento" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="gallery/DSC01254.jpg" alt="OCTA CONCEPT - Escenario y multitud" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="gallery/DSC01506.jpg" alt="OCTA CONCEPT - Pista de baile" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="gallery/DSC01754.jpg" alt="OCTA CONCEPT - Asistentes disfrutando" loading="lazy">
+            </div>
         </div>
 
         <div class="instagram-cta">
